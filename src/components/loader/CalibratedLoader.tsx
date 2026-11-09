@@ -52,11 +52,9 @@ export function CalibratedLoader() {
           }, 300);
         };
 
-        if (document.fonts) {
-          document.fonts.ready.then(finish).catch(finish);
-        } else {
-          finish();
-        }
+        const fontPromise = document.fonts ? document.fonts.ready : Promise.resolve();
+        const fontTimeoutPromise = new Promise((resolve) => setTimeout(resolve, 1200));
+        Promise.race([fontPromise, fontTimeoutPromise]).then(finish).catch(finish);
       }
     }, 50);
 

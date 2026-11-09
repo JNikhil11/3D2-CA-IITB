@@ -20,7 +20,7 @@ for (const vp of VIEWPORTS) {
     page.on('pageerror', (err) => errors.push(err.message));
 
     await page.setViewportSize(vp);
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
 
     // Wait for readiness
     await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 20000 });
