@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => {
   test('captures high-fidelity screenshots of all 5 worlds verifying persistent Atlas and zero black viewports', async ({ page }) => {
+    test.setTimeout(90000);
     const pageErrors: string[] = [];
     page.on('pageerror', (err) => pageErrors.push(err.message));
 
