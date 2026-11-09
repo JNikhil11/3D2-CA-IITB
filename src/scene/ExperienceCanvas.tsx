@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { useUIStore } from '../store/useUIStore';
 import { LightingRig } from './controllers/LightingRig';
 import { useMasterChoreography } from './controllers/useMasterChoreography';
+import { PersistentAtlas } from './atlas/PersistentAtlas';
 import { World01Observatory } from './worlds/World01Observatory';
 import { World02Engine } from './worlds/World02Engine';
 import { World03Quadrants } from './worlds/World03Quadrants';
@@ -49,6 +50,8 @@ function SceneContent() {
   return (
     <Bvh firstHitOnly>
       <LightingRig />
+      {/* Central Persistent Anchor: The Living Atlas occupies ~70% screen across all 5 worlds */}
+      <PersistentAtlas />
       <World01Observatory />
       <World02Engine />
       <World03Quadrants />

@@ -27,55 +27,84 @@ export function World03Quadrants() {
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
 
-    // Subtle kinematic motion for each quadrant model
+    // Kinematic motion for each quadrant model
     if (roboRef.current) {
-      roboRef.current.rotation.y = Math.sin(time * 0.8) * 0.35;
+      roboRef.current.rotation.y = Math.sin(time * 0.9) * 0.35;
     }
     if (aeroRef.current) {
-      aeroRef.current.position.y = -43.5 + Math.sin(time * 1.2) * 0.15;
-      aeroRef.current.rotation.z = Math.sin(time * 0.6) * 0.08;
+      aeroRef.current.position.y = 0.8 + Math.sin(time * 1.2) * 0.12;
+      aeroRef.current.rotation.z = Math.sin(time * 0.7) * 0.08;
     }
     if (aiRef.current) {
-      aiRef.current.rotation.y = time * 0.25;
+      aiRef.current.rotation.y = time * 0.3;
+      aiRef.current.rotation.x = Math.sin(time * 0.5) * 0.1;
     }
     if (greenRef.current) {
-      greenRef.current.rotation.y = time * 2.5; // Turbine spinning
+      greenRef.current.rotation.y = time * 2.8; // Fast helical turbine rotation
     }
   });
 
   return (
-    <group name="World03_EngineeringQuadrants">
+    <group name="World03_EngineeringQuadrants" position={[0, 0, 0]}>
+      {/* 3D Quadrants Model */}
       <primitive object={scene} />
 
-      {/* Quadrant Spotlights reacting to selection */}
+      {/* Radiant Ethereal Energy Beams connecting Atlas Core to Quadrants */}
+      {[
+        { target: [-3.6, 0.4, 0.8], color: '#C89D54' },
+        { target: [-1.2, 0.9, -3.2], color: '#F2A93B' },
+        { target: [3.6, 0.4, 0.8], color: '#60A5FA' },
+        { target: [1.2, 0.9, -3.2], color: '#34D399' },
+      ].map((beam, i) => (
+        <line key={i}>
+          <bufferGeometry
+            attributes={{
+              position: new THREE.Float32BufferAttribute(
+                [0, 1.2, 0, beam.target[0], beam.target[1], beam.target[2]],
+                3
+              ),
+            }}
+          />
+          <lineBasicMaterial color={beam.color} transparent opacity={0.45} />
+        </line>
+      ))}
+
+      {/* Quadrant Spotlights reacting to selection with rich illumination */}
       <pointLight
-        position={[-5.5, -42.0, -58.0]}
+        position={[-3.6, 2.2, 0.8]}
         color="#C89D54"
-        intensity={selectedQuadrant === 'robotics' ? 45.0 : 12.0}
-        distance={15}
+        intensity={selectedQuadrant === 'robotics' ? 35.0 : 18.0}
+        distance={12}
+        decay={1.8}
       />
       <pointLight
-        position={[0.0, -40.0, -65.0]}
+        position={[-1.2, 2.5, -3.2]}
         color="#F2A93B"
-        intensity={selectedQuadrant === 'aerospace' ? 45.0 : 12.0}
-        distance={15}
+        intensity={selectedQuadrant === 'aerospace' ? 35.0 : 18.0}
+        distance={12}
+        decay={1.8}
       />
       <pointLight
-        position={[5.5, -42.0, -58.0]}
-        color="#1F3A93"
-        intensity={selectedQuadrant === 'cognitive' ? 45.0 : 12.0}
-        distance={15}
+        position={[3.6, 2.2, 0.8]}
+        color="#3B82F6"
+        intensity={selectedQuadrant === 'cognitive' ? 40.0 : 20.0}
+        distance={12}
+        decay={1.8}
       />
       <pointLight
-        position={[0.0, -42.0, -53.0]}
-        color="#5B7A66"
-        intensity={selectedQuadrant === 'sustainability' ? 45.0 : 12.0}
-        distance={15}
+        position={[1.2, 2.5, -3.2]}
+        color="#10B981"
+        intensity={selectedQuadrant === 'sustainability' ? 35.0 : 18.0}
+        distance={12}
+        decay={1.8}
       />
+
+      {/* Central rotunda warm floodlight */}
+      <pointLight position={[0.0, 3.0, 0.0]} color="#FAF6EE" intensity={15.0} distance={15} decay={2.0} />
 
       {/* Hotspot proxies for the 4 quadrants */}
       <mesh
-        position={[-4.5, -45.0, -58.0]}
+        position={[-3.6, 0.8, 0.8]}
         visible={false}
         onClick={(e) => {
           e.stopPropagation();
@@ -89,12 +118,12 @@ export function World03Quadrants() {
           document.body.style.cursor = 'auto';
         }}
       >
-        <sphereGeometry args={[1.5, 12, 12]} />
+        <sphereGeometry args={[1.2, 12, 12]} />
         <meshBasicMaterial />
       </mesh>
 
       <mesh
-        position={[0.0, -43.5, -63.5]}
+        position={[-1.2, 1.2, -3.2]}
         visible={false}
         onClick={(e) => {
           e.stopPropagation();
@@ -108,12 +137,12 @@ export function World03Quadrants() {
           document.body.style.cursor = 'auto';
         }}
       >
-        <sphereGeometry args={[1.8, 12, 12]} />
+        <sphereGeometry args={[1.4, 12, 12]} />
         <meshBasicMaterial />
       </mesh>
 
       <mesh
-        position={[4.5, -45.0, -58.0]}
+        position={[3.6, 0.8, 0.8]}
         visible={false}
         onClick={(e) => {
           e.stopPropagation();
@@ -127,12 +156,12 @@ export function World03Quadrants() {
           document.body.style.cursor = 'auto';
         }}
       >
-        <sphereGeometry args={[1.5, 12, 12]} />
+        <sphereGeometry args={[1.2, 12, 12]} />
         <meshBasicMaterial />
       </mesh>
 
       <mesh
-        position={[0.0, -46.5, -55.0]}
+        position={[1.2, 1.2, -3.2]}
         visible={false}
         onClick={(e) => {
           e.stopPropagation();
@@ -146,7 +175,7 @@ export function World03Quadrants() {
           document.body.style.cursor = 'auto';
         }}
       >
-        <sphereGeometry args={[1.5, 12, 12]} />
+        <sphereGeometry args={[1.2, 12, 12]} />
         <meshBasicMaterial />
       </mesh>
     </group>

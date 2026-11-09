@@ -23,8 +23,9 @@ test.describe('Loader & Living Atlas Hero Reveal', () => {
     await expect(page.locator('img[alt*="IIT Bombay"]')).toBeVisible();
     await expect(page.locator('img[alt*="Techfest"]')).toBeVisible();
 
-    // Editorial vellum panel visible
-    await expect(page.locator('aside[aria-label="Editorial Narrative & World Telemetry"]')).toBeVisible();
+    // Editorial overlay visible without rectangular containers
+    await expect(page.locator('.editorial-overlay')).toBeVisible();
+    await expect(page.locator('.editorial-overlay h1')).toContainText(/Grand Observatory/i);
 
     expect(pageErrors).toHaveLength(0);
   });

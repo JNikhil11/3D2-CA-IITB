@@ -27,29 +27,29 @@ export function World02Engine() {
     const p = sceneTransientStore.smoothProgress;
     const time = state.clock.getElapsedTime();
 
-    // Rotate massive bevel gears proportional to progress
+    // Rotate massive bevel gears proportional to scroll progress and idle clock drift
     if (gearTrainRef.current) {
-      gearTrainRef.current.rotation.y = p * Math.PI * 12.0;
+      gearTrainRef.current.rotation.y = p * Math.PI * 8.0 + time * 0.15;
     }
 
     // Escapement deadbeat tick oscillation
     if (escapementRef.current) {
-      escapementRef.current.rotation.x = p * Math.PI * 8.0 + Math.sin(time * 12.0) * 0.08;
+      escapementRef.current.rotation.x = p * Math.PI * 6.0 + Math.sin(time * 14.0) * 0.08;
     }
 
-    // Torsion pendulum 60s period harmonic harmonic twist
+    // Torsion pendulum harmonic twist
     if (pendulumRef.current) {
-      pendulumRef.current.rotation.y = Math.sin(time * (Math.PI / 3.0)) * 0.85;
+      pendulumRef.current.rotation.y = Math.sin(time * (Math.PI / 2.5)) * 0.75;
     }
   });
 
   return (
-    <group name="World02_SubterraneanEngine">
+    <group name="World02_SubterraneanEngine" position={[0, 0, 0]}>
       <primitive object={scene} />
 
-      {/* Hotspot proxies */}
+      {/* Escapement Hotspot Proxy */}
       <mesh
-        position={[0.0, -26.5, -14.2]}
+        position={[0.0, -0.6, 0.8]}
         visible={false}
         onClick={(e) => {
           e.stopPropagation();
@@ -62,12 +62,13 @@ export function World02Engine() {
           document.body.style.cursor = 'auto';
         }}
       >
-        <sphereGeometry args={[0.8, 12, 12]} />
+        <sphereGeometry args={[0.9, 12, 12]} />
         <meshBasicMaterial />
       </mesh>
 
+      {/* Pendulum Hotspot Proxy */}
       <mesh
-        position={[-1.8, -28.0, -15.5]}
+        position={[-1.4, -1.8, 0.0]}
         visible={false}
         onClick={(e) => {
           e.stopPropagation();
@@ -80,25 +81,7 @@ export function World02Engine() {
           document.body.style.cursor = 'auto';
         }}
       >
-        <sphereGeometry args={[0.7, 12, 12]} />
-        <meshBasicMaterial />
-      </mesh>
-
-      <mesh
-        position={[1.6, -29.2, -16.0]}
-        visible={false}
-        onClick={(e) => {
-          e.stopPropagation();
-          setInspectedHotspotId('power-conduit');
-        }}
-        onPointerOver={() => {
-          document.body.style.cursor = 'pointer';
-        }}
-        onPointerOut={() => {
-          document.body.style.cursor = 'auto';
-        }}
-      >
-        <sphereGeometry args={[0.7, 12, 12]} />
+        <sphereGeometry args={[0.9, 12, 12]} />
         <meshBasicMaterial />
       </mesh>
     </group>

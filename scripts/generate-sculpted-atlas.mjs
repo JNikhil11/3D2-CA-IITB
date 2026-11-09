@@ -353,67 +353,68 @@ async function generateWorld02Engine() {
     .setRoughnessFactor(0.40);
 
   const shaftGeoms = [];
-  const shaft = new THREE.CylinderGeometry(0.45, 0.45, 30.0, 24);
-  shaft.translate(0, -15.0, 0);
+  const shaft = new THREE.CylinderGeometry(0.35, 0.35, 8.0, 24);
+  shaft.translate(0, -4.0, 0);
   shaftGeoms.push(shaft);
-  for (let f = 0; f < 5; f++) {
-    const flange = new THREE.CylinderGeometry(0.85, 0.85, 0.4, 24);
-    flange.translate(0, -4.0 - f * 6.0, 0);
+  for (let f = 0; f < 3; f++) {
+    const flange = new THREE.CylinderGeometry(0.65, 0.65, 0.25, 24);
+    flange.translate(0, -1.5 - f * 2.0, 0);
     shaftGeoms.push(flange);
   }
   const mergedShaft = safeMergeGeometries(shaftGeoms);
-  addMeshNode(doc, buffer, scene, mergedShaft, matSteel, 'SM_Engine_DriveShaft', [0, 0, -15]);
+  addMeshNode(doc, buffer, scene, mergedShaft, matSteel, 'SM_Engine_DriveShaft', [0, 0, 0]);
 
   const gearGeoms = [];
-  const bigGear1 = createInvoluteGear(36, 2.8, 0.35, 0.6);
-  bigGear1.translate(0, -22.0, 0);
+  const bigGear1 = createInvoluteGear(36, 2.2, 0.28, 0.45);
+  bigGear1.translate(0, -1.2, 0);
   gearGeoms.push(bigGear1);
-  const bigGear2 = createInvoluteGear(28, 2.1, 0.30, 0.5);
-  bigGear2.translate(0, -25.5, 0);
+  const bigGear2 = createInvoluteGear(28, 1.6, 0.24, 0.4);
+  bigGear2.translate(0, -1.8, 0);
   gearGeoms.push(bigGear2);
-  const bevelPinion = createInvoluteGear(18, 1.2, 0.4, 0.3);
+  const bevelPinion = createInvoluteGear(18, 0.9, 0.3, 0.25);
   bevelPinion.rotateX(Math.PI / 2);
-  bevelPinion.translate(2.5, -22.0, 0);
+  bevelPinion.translate(1.8, -1.2, 0);
   gearGeoms.push(bevelPinion);
   const mergedGears = safeMergeGeometries(gearGeoms);
-  addMeshNode(doc, buffer, scene, mergedGears, matBronze, 'SM_Engine_GearTrain', [0, 0, -15]);
+  addMeshNode(doc, buffer, scene, mergedGears, matBronze, 'SM_Engine_GearTrain', [0, 0, 0]);
 
   const escGeoms = [];
-  const escWheel = createInvoluteGear(30, 1.6, 0.15, 0.3);
+  const escWheel = createInvoluteGear(30, 1.2, 0.12, 0.25);
   escWheel.rotateX(Math.PI / 2);
+  escWheel.translate(0, -0.6, 0.8);
   escGeoms.push(escWheel);
-  const anchorBar = new THREE.BoxGeometry(0.12, 2.2, 0.15);
-  anchorBar.translate(0, 0, 1.7);
+  const anchorBar = new THREE.BoxGeometry(0.10, 1.6, 0.12);
+  anchorBar.translate(0, -0.6, 1.3);
   escGeoms.push(anchorBar);
-  const pallet1 = new THREE.BoxGeometry(0.25, 0.12, 0.15);
-  pallet1.translate(-0.4, 0.9, 1.55);
-  const pallet2 = new THREE.BoxGeometry(0.25, 0.12, 0.15);
-  pallet2.translate(0.4, -0.9, 1.55);
+  const pallet1 = new THREE.BoxGeometry(0.20, 0.10, 0.12);
+  pallet1.translate(-0.3, -0.3, 1.25);
+  const pallet2 = new THREE.BoxGeometry(0.20, 0.10, 0.12);
+  pallet2.translate(0.3, -0.9, 1.25);
   escGeoms.push(pallet1, pallet2);
   const mergedEsc = safeMergeGeometries(escGeoms);
-  addMeshNode(doc, buffer, scene, mergedEsc, matSteel, 'SM_Engine_Escapement', [0, -26.5, -14.2]);
+  addMeshNode(doc, buffer, scene, mergedEsc, matSteel, 'SM_Engine_Escapement', [0, 0, 0]);
 
   const pendGeoms = [];
-  const ribbon = new THREE.BoxGeometry(0.04, 3.5, 0.01);
-  ribbon.translate(0, 1.75, 0);
+  const ribbon = new THREE.BoxGeometry(0.03, 2.4, 0.01);
+  ribbon.translate(0, -1.0, 0);
   pendGeoms.push(ribbon);
   for (let b = 0; b < 4; b++) {
-    const lobe = new THREE.CylinderGeometry(0.25, 0.25, 0.4, 16);
+    const lobe = new THREE.CylinderGeometry(0.20, 0.20, 0.3, 16);
     const a = (b / 4) * Math.PI * 2;
-    lobe.translate(Math.cos(a) * 0.75, 0, Math.sin(a) * 0.75);
+    lobe.translate(Math.cos(a) * 0.55, -2.2, Math.sin(a) * 0.55);
     pendGeoms.push(lobe);
   }
   const mergedPend = safeMergeGeometries(pendGeoms);
-  addMeshNode(doc, buffer, scene, mergedPend, matBronze, 'SM_Engine_TorsionPendulum', [-1.8, -28.0, -15.5]);
+  addMeshNode(doc, buffer, scene, mergedPend, matBronze, 'SM_Engine_TorsionPendulum', [-1.4, 0, 0]);
 
   const pipeGeoms = [];
   for (let p = 0; p < 3; p++) {
-    const pipe = new THREE.CylinderGeometry(0.14, 0.14, 8.0, 16);
-    pipe.translate(1.4 + p * 0.5, -28.0, -15.5 - p * 0.3);
+    const pipe = new THREE.CylinderGeometry(0.10, 0.10, 5.0, 16);
+    pipe.translate(1.0 + p * 0.35, -2.5, -0.5 - p * 0.2);
     pipeGeoms.push(pipe);
   }
   const mergedPipes = safeMergeGeometries(pipeGeoms);
-  addMeshNode(doc, buffer, scene, mergedPipes, matBronze, 'SM_Engine_HydraulicPipes', [1.6, -29.2, -16.0]);
+  addMeshNode(doc, buffer, scene, mergedPipes, matBronze, 'SM_Engine_HydraulicPipes', [1.2, 0, 0]);
 
   const io = new NodeIO();
   const glb = await io.writeBinary(doc);
@@ -432,130 +433,131 @@ async function generateWorld03Quadrants() {
   const scene = doc.createScene('QuadrantsHubScene');
 
   const matFloor = doc.createMaterial('MAT_RotundaFloor')
-    .setBaseColorFactor([0.10, 0.12, 0.16, 1.0])
-    .setRoughnessFactor(0.85);
+    .setBaseColorFactor([0.42, 0.38, 0.32, 1.0])
+    .setMetallicFactor(0.4)
+    .setRoughnessFactor(0.45);
 
   const matRobo = doc.createMaterial('MAT_RoboticsAlloy')
-    .setBaseColorFactor([0.80, 0.65, 0.35, 1.0])
+    .setBaseColorFactor([0.88, 0.72, 0.42, 1.0])
     .setMetallicFactor(0.9)
     .setRoughnessFactor(0.25);
 
   const matAero = doc.createMaterial('MAT_AerospaceComposite')
-    .setBaseColorFactor([0.85, 0.85, 0.88, 1.0])
+    .setBaseColorFactor([0.90, 0.90, 0.94, 1.0])
     .setMetallicFactor(0.85)
     .setRoughnessFactor(0.20);
 
   const matAI = doc.createMaterial('MAT_PhotonicCrystal')
-    .setBaseColorFactor([0.25, 0.45, 0.90, 1.0])
-    .setEmissiveFactor([0.15, 0.35, 0.80])
+    .setBaseColorFactor([0.35, 0.55, 0.95, 1.0])
+    .setEmissiveFactor([0.25, 0.45, 0.90])
     .setRoughnessFactor(0.15);
 
   const matGreen = doc.createMaterial('MAT_SustainableAlloy')
-    .setBaseColorFactor([0.35, 0.60, 0.45, 1.0])
+    .setBaseColorFactor([0.45, 0.75, 0.55, 1.0])
     .setMetallicFactor(0.8)
     .setRoughnessFactor(0.35);
 
   const rotundaGeoms = [];
-  const rotundaBase = new THREE.CylinderGeometry(14.0, 14.5, 0.8, 32);
+  const rotundaBase = new THREE.CylinderGeometry(8.5, 9.0, 0.5, 32);
   rotundaGeoms.push(rotundaBase);
   for (let w = 0; w < 4; w++) {
-    const arm = new THREE.BoxGeometry(3.0, 0.6, 10.0);
+    const arm = new THREE.BoxGeometry(2.0, 0.35, 6.0);
     arm.rotateY((w / 4) * Math.PI * 2);
     rotundaGeoms.push(arm);
   }
   const mergedRotunda = safeMergeGeometries(rotundaGeoms);
-  addMeshNode(doc, buffer, scene, mergedRotunda, matFloor, 'SM_Quad_Rotunda', [0, -45.5, -60.0]);
+  addMeshNode(doc, buffer, scene, mergedRotunda, matFloor, 'SM_Quad_Rotunda', [0, -0.3, 0]);
 
   // Robotics Arm
   const roboGeoms = [];
-  const rBase = new THREE.CylinderGeometry(0.6, 0.8, 0.5, 16);
+  const rBase = new THREE.CylinderGeometry(0.5, 0.65, 0.4, 16);
   roboGeoms.push(rBase);
-  const joint1 = new THREE.SphereGeometry(0.45, 16, 16);
-  joint1.translate(0, 0.6, 0);
+  const joint1 = new THREE.SphereGeometry(0.38, 16, 16);
+  joint1.translate(0, 0.5, 0);
   roboGeoms.push(joint1);
-  const link1 = new THREE.CylinderGeometry(0.28, 0.35, 1.8, 16);
+  const link1 = new THREE.CylinderGeometry(0.22, 0.28, 1.5, 16);
   link1.rotateZ(0.35);
-  link1.translate(0.4, 1.4, 0);
+  link1.translate(0.3, 1.1, 0);
   roboGeoms.push(link1);
-  const joint2 = new THREE.SphereGeometry(0.38, 16, 16);
-  joint2.translate(0.8, 2.2, 0);
+  const joint2 = new THREE.SphereGeometry(0.32, 16, 16);
+  joint2.translate(0.65, 1.8, 0);
   roboGeoms.push(joint2);
-  const link2 = new THREE.CylinderGeometry(0.22, 0.28, 1.5, 16);
+  const link2 = new THREE.CylinderGeometry(0.18, 0.22, 1.2, 16);
   link2.rotateZ(-0.55);
-  link2.translate(1.4, 2.8, 0);
+  link2.translate(1.1, 2.3, 0);
   roboGeoms.push(link2);
-  const gBase = new THREE.BoxGeometry(0.3, 0.2, 0.4);
-  gBase.translate(2.1, 3.2, 0);
-  const finger1 = new THREE.BoxGeometry(0.08, 0.35, 0.08);
-  finger1.translate(2.2, 3.45, 0.12);
-  const finger2 = new THREE.BoxGeometry(0.08, 0.35, 0.08);
-  finger2.translate(2.2, 3.45, -0.12);
+  const gBase = new THREE.BoxGeometry(0.25, 0.16, 0.32);
+  gBase.translate(1.6, 2.6, 0);
+  const finger1 = new THREE.BoxGeometry(0.06, 0.28, 0.06);
+  finger1.translate(1.7, 2.8, 0.1);
+  const finger2 = new THREE.BoxGeometry(0.06, 0.28, 0.06);
+  finger2.translate(1.7, 2.8, -0.1);
   roboGeoms.push(gBase, finger1, finger2);
   const mergedRobo = safeMergeGeometries(roboGeoms);
-  addMeshNode(doc, buffer, scene, mergedRobo, matRobo, 'SM_Quad_Robotics', [-5.5, -45.0, -58.0]);
+  addMeshNode(doc, buffer, scene, mergedRobo, matRobo, 'SM_Quad_Robotics', [-3.6, 0.1, 0.8]);
 
   // Aerospace Waverider
   const aeroGeoms = [];
-  const cone = new THREE.ConeGeometry(2.0, 4.5, 4);
+  const cone = new THREE.ConeGeometry(1.6, 3.6, 4);
   cone.rotateX(Math.PI / 2);
   cone.scale(1.0, 0.2, 1.0);
   aeroGeoms.push(cone);
-  const fin1 = new THREE.BoxGeometry(0.08, 0.9, 0.9);
+  const fin1 = new THREE.BoxGeometry(0.06, 0.7, 0.7);
   fin1.rotateZ(0.25);
-  fin1.translate(1.2, 0.45, 1.2);
-  const fin2 = new THREE.BoxGeometry(0.08, 0.9, 0.9);
+  fin1.translate(0.9, 0.35, 0.9);
+  const fin2 = new THREE.BoxGeometry(0.06, 0.7, 0.7);
   fin2.rotateZ(-0.25);
-  fin2.translate(-1.2, 0.45, 1.2);
+  fin2.translate(-0.9, 0.35, 0.9);
   aeroGeoms.push(fin1, fin2);
-  const engine = new THREE.CylinderGeometry(0.3, 0.4, 0.8, 16);
+  const engine = new THREE.CylinderGeometry(0.24, 0.32, 0.65, 16);
   engine.rotateX(Math.PI / 2);
-  engine.translate(0, 0, 1.8);
+  engine.translate(0, 0, 1.4);
   aeroGeoms.push(engine);
   const mergedAero = safeMergeGeometries(aeroGeoms);
-  addMeshNode(doc, buffer, scene, mergedAero, matAero, 'SM_Quad_Aerospace', [0.0, -43.5, -65.0]);
+  addMeshNode(doc, buffer, scene, mergedAero, matAero, 'SM_Quad_Aerospace', [-1.2, 0.8, -3.2]);
 
   // Cognitive Computing Photonic Lattice
   const aiGeoms = [];
   for (let x = -1; x <= 1; x++) {
     for (let y = 0; y <= 2; y++) {
       for (let z = -1; z <= 1; z++) {
-        const nodeSph = new THREE.SphereGeometry(0.14, 12, 12);
-        nodeSph.translate(x * 0.9, y * 0.9, z * 0.9);
+        const nodeSph = new THREE.SphereGeometry(0.12, 12, 12);
+        nodeSph.translate(x * 0.7, y * 0.7, z * 0.7);
         aiGeoms.push(nodeSph);
       }
     }
   }
   for (let i = -1; i <= 1; i++) {
-    const rodX = new THREE.CylinderGeometry(0.03, 0.03, 1.8, 8);
+    const rodX = new THREE.CylinderGeometry(0.025, 0.025, 1.4, 8);
     rodX.rotateZ(Math.PI / 2);
-    rodX.translate(0, 0.9, i * 0.9);
-    const rodZ = new THREE.CylinderGeometry(0.03, 0.03, 1.8, 8);
+    rodX.translate(0, 0.7, i * 0.7);
+    const rodZ = new THREE.CylinderGeometry(0.025, 0.025, 1.4, 8);
     rodZ.rotateX(Math.PI / 2);
-    rodZ.translate(i * 0.9, 0.9, 0);
+    rodZ.translate(i * 0.7, 0.7, 0);
     aiGeoms.push(rodX, rodZ);
   }
   const mergedAI = safeMergeGeometries(aiGeoms);
-  addMeshNode(doc, buffer, scene, mergedAI, matAI, 'SM_Quad_Cognitive', [5.5, -45.0, -58.0]);
+  addMeshNode(doc, buffer, scene, mergedAI, matAI, 'SM_Quad_Cognitive', [3.6, 0.1, 0.8]);
 
   // Sustainability Helical Turbine
   const greenGeoms = [];
-  const mast = new THREE.CylinderGeometry(0.12, 0.16, 4.0, 16);
-  mast.translate(0, 2.0, 0);
+  const mast = new THREE.CylinderGeometry(0.10, 0.12, 3.2, 16);
+  mast.translate(0, 1.6, 0);
   greenGeoms.push(mast);
   for (let b = 0; b < 2; b++) {
     const bladeCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(Math.cos(b * Math.PI) * 0.9, 0.4, Math.sin(b * Math.PI) * 0.9),
-      new THREE.Vector3(Math.cos(b * Math.PI + 1.6) * 0.9, 2.0, Math.sin(b * Math.PI + 1.6) * 0.9),
-      new THREE.Vector3(Math.cos(b * Math.PI + 3.2) * 0.9, 3.6, Math.sin(b * Math.PI + 3.2) * 0.9),
+      new THREE.Vector3(Math.cos(b * Math.PI) * 0.7, 0.3, Math.sin(b * Math.PI) * 0.7),
+      new THREE.Vector3(Math.cos(b * Math.PI + 1.6) * 0.7, 1.6, Math.sin(b * Math.PI + 1.6) * 0.7),
+      new THREE.Vector3(Math.cos(b * Math.PI + 3.2) * 0.7, 2.9, Math.sin(b * Math.PI + 3.2) * 0.7),
     ]);
-    const bladeTube = new THREE.TubeGeometry(bladeCurve, 24, 0.14, 8, false);
+    const bladeTube = new THREE.TubeGeometry(bladeCurve, 24, 0.10, 8, false);
     greenGeoms.push(bladeTube);
   }
-  const solarBase = new THREE.CylinderGeometry(1.6, 1.8, 0.3, 16);
-  solarBase.translate(0, 0.15, 0);
+  const solarBase = new THREE.CylinderGeometry(1.2, 1.4, 0.25, 16);
+  solarBase.translate(0, 0.12, 0);
   greenGeoms.push(solarBase);
   const mergedGreen = safeMergeGeometries(greenGeoms);
-  addMeshNode(doc, buffer, scene, mergedGreen, matGreen, 'SM_Quad_Sustainability', [0.0, -45.0, -53.0]);
+  addMeshNode(doc, buffer, scene, mergedGreen, matGreen, 'SM_Quad_Sustainability', [1.2, 0.8, -3.2]);
 
   const io = new NodeIO();
   const glb = await io.writeBinary(doc);
@@ -608,40 +610,40 @@ async function generateWorld04Arena() {
   topRing.translate(0, 7.2, 0);
   stageGeoms.push(topRing);
   const mergedStage = safeMergeGeometries(stageGeoms);
-  addMeshNode(doc, buffer, scene, mergedStage, matTruss, 'SM_Arena_MainStage', [0.0, -30.0, -125.0]);
+  addMeshNode(doc, buffer, scene, mergedStage, matTruss, 'SM_Arena_MainStage', [0.0, -0.6, 0.0]);
 
   const pylonGeoms = [];
   for (let p = 0; p < 8; p++) {
     const ang = (p / 8) * Math.PI * 2;
-    const px = Math.cos(ang) * 12.0;
-    const pz = Math.sin(ang) * 12.0;
-    const tower = new THREE.CylinderGeometry(0.2, 0.35, 6.0, 8);
-    tower.translate(px, 3.0, pz);
+    const px = Math.cos(ang) * 8.5;
+    const pz = Math.sin(ang) * 8.5;
+    const tower = new THREE.CylinderGeometry(0.18, 0.28, 5.0, 8);
+    tower.translate(px, 2.5, pz);
     pylonGeoms.push(tower);
-    const head = new THREE.SphereGeometry(0.4, 12, 12);
-    head.translate(px, 6.2, pz);
+    const head = new THREE.SphereGeometry(0.35, 12, 12);
+    head.translate(px, 5.2, pz);
     pylonGeoms.push(head);
   }
   const mergedPylons = safeMergeGeometries(pylonGeoms);
-  addMeshNode(doc, buffer, scene, mergedPylons, matPylon, 'SM_Arena_LightPylons', [0.0, -30.0, -120.0]);
+  addMeshNode(doc, buffer, scene, mergedPylons, matPylon, 'SM_Arena_LightPylons', [0.0, -0.6, 0.0]);
 
   const nexusGeoms = [];
-  const table = new THREE.BoxGeometry(4.0, 0.4, 4.0);
+  const table = new THREE.BoxGeometry(3.0, 0.3, 3.0);
   nexusGeoms.push(table);
-  const convoBase = new THREE.BoxGeometry(0.9, 0.4, 0.6);
-  convoBase.translate(-0.9, 0.4, -0.7);
-  const convoDome = new THREE.SphereGeometry(0.25, 12, 12);
-  convoDome.translate(-0.9, 0.65, -0.7);
+  const convoBase = new THREE.BoxGeometry(0.7, 0.3, 0.5);
+  convoBase.translate(-0.7, 0.3, -0.5);
+  const convoDome = new THREE.SphereGeometry(0.2, 12, 12);
+  convoDome.translate(-0.7, 0.5, -0.5);
   nexusGeoms.push(convoBase, convoDome);
-  const oatTier = new THREE.TorusGeometry(0.45, 0.12, 8, 16, Math.PI);
+  const oatTier = new THREE.TorusGeometry(0.35, 0.1, 8, 16, Math.PI);
   oatTier.rotateX(Math.PI / 2);
-  oatTier.translate(0.9, 0.3, 0.8);
+  oatTier.translate(0.7, 0.25, 0.6);
   nexusGeoms.push(oatTier);
-  const lhc = new THREE.BoxGeometry(0.8, 0.6, 0.8);
-  lhc.translate(0.9, 0.5, -0.7);
+  const lhc = new THREE.BoxGeometry(0.6, 0.45, 0.6);
+  lhc.translate(0.7, 0.4, -0.5);
   nexusGeoms.push(lhc);
   const mergedNexus = safeMergeGeometries(nexusGeoms);
-  addMeshNode(doc, buffer, scene, mergedNexus, matNexus, 'SM_Arena_CampusNexus', [4.8, -28.5, -116.0]);
+  addMeshNode(doc, buffer, scene, mergedNexus, matNexus, 'SM_Arena_CampusNexus', [3.2, 0.4, -1.5]);
 
   const io = new NodeIO();
   const glb = await io.writeBinary(doc);

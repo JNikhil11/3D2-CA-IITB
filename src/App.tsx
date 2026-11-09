@@ -7,9 +7,8 @@ import { useUIStore } from './store/useUIStore';
 import { CalibratedLoader } from './components/loader/CalibratedLoader';
 import { ExperienceCanvas } from './scene/ExperienceCanvas';
 import { TopHeader } from './components/hud/TopHeader';
-import { VellumPanel } from './components/hud/VellumPanel';
+import { EditorialOverlay } from './components/hud/EditorialOverlay';
 import { SvgLeaderLines } from './components/hud/SvgLeaderLines';
-import { WorldScrubber } from './components/hud/WorldScrubber';
 import { HotspotDetailDrawer } from './components/modals/HotspotDetailDrawer';
 import { SpatialCampusMapModal } from './components/modals/SpatialCampusMapModal';
 import { AccessibleDOMMirror } from './components/fallback/AccessibleDOMMirror';
@@ -89,13 +88,12 @@ export function App() {
       {/* Fixed Full-Viewport 3D WebGL Canvas */}
       <ExperienceCanvas />
 
-      {/* Peripheral HUD Layer */}
+      {/* Clean Immersive Overlay Layer */}
       {isLoaded && (
         <>
           <TopHeader />
-          <VellumPanel />
+          <EditorialOverlay />
           <SvgLeaderLines />
-          <WorldScrubber />
           <HotspotDetailDrawer />
           <SpatialCampusMapModal />
         </>

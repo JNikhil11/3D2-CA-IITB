@@ -93,9 +93,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'Deadbeat Anchor & Foliot Wheel',
         description:
           'High-torque escapement wheel regulated by dual counter-oscillating pallets, transforming continuous gravitational descent into calibrated impulse beats.',
-        position: [0.0, -26.5, -14.2],
-        inspectionOffset: [2.2, -26.0, -11.5],
-        lookAtOffset: [0.0, -26.5, -14.2],
+        position: [0.0, -0.6, 0.8],
+        inspectionOffset: [1.2, -0.4, 2.8],
+        lookAtOffset: [0.0, -0.6, 0.8],
         technicalSpec: {
           GearRatio: '144:1 Epicyclic Compound Reduction',
           Escapement: 'Graham Deadbeat with Ruby Pallets',
@@ -110,9 +110,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'Suspension Ribbon & Torsion Sphere',
         description:
           'Elgiloy torsion spring supporting a four-lobed cylindrical compensator, oscillating once every sixty seconds to regulate the entire exhibition rhythm.',
-        position: [-1.8, -28.0, -15.5],
-        inspectionOffset: [-1.8, -27.5, -12.5],
-        lookAtOffset: [-1.8, -28.0, -15.5],
+        position: [-1.4, -1.8, 0.0],
+        inspectionOffset: [-1.4, -1.6, 2.4],
+        lookAtOffset: [-1.4, -1.8, 0.0],
         technicalSpec: {
           Period: '60.00 Seconds Harmonic Cycle',
           Suspension: 'Thermo-Compensated Beryllium Ribbon',
@@ -127,9 +127,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'High-Pressure Energy Distribution',
         description:
           'Flanged bronze fluid conduits directing hydrostatic pressure to vertical hydraulic jacks that lift and position the outer observatory shell.',
-        position: [1.6, -29.2, -16.0],
-        inspectionOffset: [2.4, -28.5, -13.0],
-        lookAtOffset: [1.6, -29.2, -16.0],
+        position: [1.2, -1.8, 0.0],
+        inspectionOffset: [1.8, -1.6, 2.4],
+        lookAtOffset: [1.2, -1.8, 0.0],
         technicalSpec: {
           Pressure: '350 Bar Hydraulic Working Fluid',
           Alloy: 'Centrifugally Cast Marine Bronze',
@@ -162,9 +162,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: '6-Axis Articulated Manipulator',
         description:
           'Harmonic-drive robotic limb engineered for sub-millimeter dexterity in harsh aerospace assembly and hazardous cleanroom environments.',
-        position: [-4.5, -45.0, -58.0],
-        inspectionOffset: [-3.0, -44.2, -54.0],
-        lookAtOffset: [-4.5, -45.0, -58.0],
+        position: [-3.6, 0.8, 0.8],
+        inspectionOffset: [-2.4, 1.2, 3.2],
+        lookAtOffset: [-3.6, 0.8, 0.8],
         technicalSpec: {
           Payload: '25 kg Continuous Dynamic Reach',
           Repeatability: '±0.02 mm Positional Accuracy',
@@ -179,9 +179,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'Waverider Hypersonic Configuration',
         description:
           'Variable-sweep lifting body optimized for orbital atmospheric glide, featuring silicon-carbide thermal tiles and aerospike thrust vectoring.',
-        position: [0.0, -43.5, -63.5],
-        inspectionOffset: [0.0, -43.0, -59.0],
-        lookAtOffset: [0.0, -43.5, -63.5],
+        position: [-1.2, 1.2, -3.2],
+        inspectionOffset: [-1.2, 1.8, -0.8],
+        lookAtOffset: [-1.2, 1.2, -3.2],
         technicalSpec: {
           SpeedRegime: 'Mach 8.5 Atmospheric Insertion',
           HeatShield: 'Ceramic Matrix Carbon Composite',
@@ -196,9 +196,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'Photonic Optical Computing Matrix',
         description:
           'Interconnected crystalline light waveguides executing tensor matrix multiplications at the speed of light with near-zero thermal dissipation.',
-        position: [4.5, -45.0, -58.0],
-        inspectionOffset: [3.0, -44.2, -54.0],
-        lookAtOffset: [4.5, -45.0, -58.0],
+        position: [3.6, 0.8, 0.8],
+        inspectionOffset: [2.4, 1.2, 3.2],
+        lookAtOffset: [3.6, 0.8, 0.8],
         technicalSpec: {
           Bandwidth: '100 Terabits/sec Optical Interconnect',
           Architecture: 'Photonic Tensor Processor Array',
@@ -213,9 +213,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'Vertical-Axis Omnidirectional Turbine',
         description:
           'Aerodynamic helical wind turbine paired with parabolic bifacial solar concentrators for carbon-negative decentralized urban power generation.',
-        position: [0.0, -46.5, -55.0],
-        inspectionOffset: [0.0, -45.5, -51.0],
-        lookAtOffset: [0.0, -46.5, -55.0],
+        position: [1.2, 1.2, -3.2],
+        inspectionOffset: [1.2, 1.8, -0.8],
+        lookAtOffset: [1.2, 1.2, -3.2],
         technicalSpec: {
           Efficiency: '48.2% Betz Limit Proximity',
           CutInSpeed: '1.2 m/s Gentle Breeze Generation',
@@ -318,9 +318,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'Kinetic Truss & Projection Mapping',
         description:
           'Monumental triangular truss structure equipped with laser projection rigs and multi-tier acoustic arrays hosting international headline acts.',
-        position: [0.0, -30.0, -125.0],
-        inspectionOffset: [0.0, -28.5, -118.0],
-        lookAtOffset: [0.0, -30.0, -125.0],
+        position: [0.0, -0.6, 0.0],
+        inspectionOffset: [0.0, 0.5, 3.5],
+        lookAtOffset: [0.0, -0.6, 0.0],
         technicalSpec: {
           Span: '48.0 Meters Clear Truss Width',
           AudioOutput: '150,000 Watts Line Array Audio',
@@ -335,9 +335,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'Automated Xenon Searchlight Beam Array',
         description:
           'Eight computer-synchronized motorized beam pylons sweeping the troposphere in geometric choreographies that trace celestial constellations.',
-        position: [-5.0, -27.0, -115.0],
-        inspectionOffset: [-3.8, -26.0, -110.0],
-        lookAtOffset: [-5.0, -27.0, -115.0],
+        position: [-4.2, 0.8, -1.2],
+        inspectionOffset: [-2.5, 1.2, 2.5],
+        lookAtOffset: [-4.2, 0.8, -1.2],
         technicalSpec: {
           Lamps: '7,000W Xenon Short-Arc Emitters',
           BeamDivergence: '0.8° Razor-Tight Parallel Column',
@@ -352,9 +352,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'Interactive Architectural Orientation',
         description:
           'Explore key conceptual landmarks across the IIT Bombay campus: Open Air Theatre (OAT), Convocation Hall, Lecture Hall Complex, and Student Gymkhana.',
-        position: [4.8, -28.5, -116.0],
-        inspectionOffset: [3.5, -27.2, -111.0],
-        lookAtOffset: [4.8, -28.5, -116.0],
+        position: [3.2, 0.8, -1.5],
+        inspectionOffset: [2.2, 1.2, 1.5],
+        lookAtOffset: [3.2, 0.8, -1.5],
         technicalSpec: {
           Location: 'Powai, Mumbai (19.1334° N, 72.9133° E)',
           Landmarks: 'OAT, Convocation Hall, LHC, Gymkhana',
@@ -387,9 +387,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'Fully Deployed Gimbal Constellation',
         description:
           'The Living Atlas fully unfolded in microgravity, meridian rings rotating along harmonic prime ratios to transmit the scientific beacon.',
-        position: [0.0, 25.0, -180.0],
-        inspectionOffset: [0.0, 25.5, -172.0],
-        lookAtOffset: [0.0, 25.0, -180.0],
+        position: [0.0, 1.5, 0.0],
+        inspectionOffset: [0.0, 2.2, 4.5],
+        lookAtOffset: [0.0, 1.5, 0.0],
         technicalSpec: {
           OrbitalRegime: 'Geostationary Beacon Alignment',
           Configuration: 'Full Hexagonal Deployment',
@@ -404,9 +404,9 @@ export const WORLDS_DATA: WorldContent[] = [
         subtitle: 'Official College Ambassador Portal',
         description:
           'Step up as the official voice of Techfest at your institution. Connect directly with the CA portal to register and lead workshops and delegations.',
-        position: [-3.2, 23.8, -175.0],
-        inspectionOffset: [-2.0, 24.2, -168.0],
-        lookAtOffset: [-3.2, 23.8, -175.0],
+        position: [-1.8, 1.2, 0.5],
+        inspectionOffset: [-1.2, 1.6, 3.2],
+        lookAtOffset: [-1.8, 1.2, 0.5],
         technicalSpec: {
           OfficialLink: VERIFIED_LINKS.CA_PORTAL,
           TaskCategory: 'Web Development & Campus Representation',

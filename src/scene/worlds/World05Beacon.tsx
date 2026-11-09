@@ -1,76 +1,88 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
-import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useUIStore } from '../../store/useUIStore';
+import { createVolumetricBeamMaterial } from '../shaders/volumetricBeamShader';
 
 export function World05Beacon() {
-  const heroGltf = useGLTF('/assets/models/atlas-hero.glb');
-  const beaconGroupRef = useRef<THREE.Group | null>(null);
-  const outerRingRef = useRef<THREE.Object3D | null>(null);
-
+  const beaconMeshRef = useRef<THREE.Mesh | null>(null);
   const { setInspectedHotspotId } = useUIStore();
 
-  // Cosmic starfield (1,200 stars)
+  const beaconMaterial = useMemo(() => createVolumetricBeamMaterial('#F2A93B'), []);
+
+  // Cosmic starfield (1,500 stars centered around the Atlas)
   const starfield = useMemo(() => {
-    const count = 1200;
+    const count = 1500;
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      positions[i * 3 + 0] = (Math.random() - 0.5) * 120.0;
-      positions[i * 3 + 1] = 10.0 + Math.random() * 60.0;
-      positions[i * 3 + 2] = -140.0 - Math.random() * 80.0;
+      const radius = 18.0 + Math.random() * 45.0;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = (Math.random() - 0.5) * Math.PI;
+      positions[i * 3 + 0] = radius * Math.cos(phi) * Math.sin(theta);
+      positions[i * 3 + 1] = radius * Math.sin(phi);
+      positions[i * 3 + 2] = radius * Math.cos(phi) * Math.cos(theta);
     }
     const geom = new THREE.BufferGeometry();
     geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     return geom;
   }, []);
 
-  const heroScene = useMemo(() => {
-    const cloned = heroGltf.scene.clone(true);
-    cloned.traverse((child) => {
-      if (child.name === 'SM_Atlas_MeridianOuter') outerRingRef.current = child;
-    });
-    return cloned;
-  }, [heroGltf]);
+  // Vertical cylinder beacon geometry
+  const beaconGeometry = useMemo(() => {
+    const geom = new THREE.CylinderGeometry(0.3, 2.2, 30.0, 32, 1, true);
+    geom.translate(0, 15.0, 0);
+    return geom;
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      beaconMaterial.dispose();
+      starfield.dispose();
+      beaconGeometry.dispose();
+    };
+  }, [beaconMaterial, starfield, beaconGeometry]);
 
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
-    if (beaconGroupRef.current) {
-      beaconGroupRef.current.rotation.y = time * 0.08;
+    if (beaconMaterial.uniforms.uTime) {
+      beaconMaterial.uniforms.uTime.value = time;
     }
-    if (outerRingRef.current) {
-      outerRingRef.current.rotation.z = time * 0.12;
+    if (beaconMeshRef.current) {
+      beaconMeshRef.current.rotation.y = time * 0.1;
     }
   });
 
   return (
-    <group name="World05_DeepSpaceBeacon" position={[0.0, 25.0, -180.0]}>
-      {/* Expanded Ascendant Atlas */}
-      <group ref={beaconGroupRef} scale={[1.8, 1.8, 1.8]}>
-        <primitive object={heroScene} />
-      </group>
-
-      {/* Cosmic Starfield */}
+    <group name="World05_DeepSpaceBeacon" position={[0.0, 0.0, 0.0]}>
+      {/* Cosmic Starfield surrounding the Atlas */}
       <points geometry={starfield}>
         <pointsMaterial
-          size={0.12}
-          color="#F4EFE6"
+          size={0.10}
+          color="#FAF6EE"
           transparent
           opacity={0.85}
           depthWrite={false}
         />
       </points>
 
-      {/* Radiant Celestial Starlight */}
-      <pointLight color="#F4EFE6" intensity={50.0} distance={50} />
-
-      {/* Hotspots */}
+      {/* Ascendant Celestial Beacon shooting from the Atlas Core into Deep Space */}
       <mesh
-        position={[0.0, 0.0, 0.0]}
+        ref={beaconMeshRef}
+        geometry={beaconGeometry}
+        material={beaconMaterial}
+        position={[0.0, 1.2, 0.0]}
+      />
+
+      {/* Zenith Beacon Light Source */}
+      <pointLight position={[0.0, 10.0, 0.0]} color="#F2A93B" intensity={30.0} distance={35} decay={1.5} />
+
+      {/* Interactive Raycast Hotspot */}
+      <mesh
+        position={[0.0, 3.5, 0.0]}
         visible={false}
         onClick={(e) => {
           e.stopPropagation();
-          setInspectedHotspotId('orbital-array');
+          setInspectedHotspotId('ascendant-core');
         }}
         onPointerOver={() => {
           document.body.style.cursor = 'pointer';
@@ -79,25 +91,7 @@ export function World05Beacon() {
           document.body.style.cursor = 'auto';
         }}
       >
-        <sphereGeometry args={[4.0, 12, 12]} />
-        <meshBasicMaterial />
-      </mesh>
-
-      <mesh
-        position={[-3.2, -1.2, 5.0]}
-        visible={false}
-        onClick={(e) => {
-          e.stopPropagation();
-          setInspectedHotspotId('ambassador-terminal');
-        }}
-        onPointerOver={() => {
-          document.body.style.cursor = 'pointer';
-        }}
-        onPointerOut={() => {
-          document.body.style.cursor = 'auto';
-        }}
-      >
-        <sphereGeometry args={[2.0, 12, 12]} />
+        <cylinderGeometry args={[1.5, 1.5, 8.0, 16]} />
         <meshBasicMaterial />
       </mesh>
     </group>
