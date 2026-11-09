@@ -22,6 +22,9 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         launchOptions: {
           args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
             '--use-gl=angle',
             '--use-angle=gl',
             '--enable-webgl',
