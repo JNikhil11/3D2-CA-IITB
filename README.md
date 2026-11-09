@@ -89,3 +89,4 @@ npm run test:e2e
 ## 📜 Independent Concept Disclaimer
 
 *3D2-CA-IITB is an independent student concept exhibition designed for the Techfest College Ambassador Web Development assignment at IIT Bombay. It is not the official primary portal of IIT Bombay or Techfest. All official competition registrations, event schedules, and festival accreditations must be accessed via verified official portals at [techfest.org](https://techfest.org/) and [ca.techfest.org](https://ca.techfest.org/).*
+

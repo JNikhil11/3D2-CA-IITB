@@ -68,3 +68,4 @@ dist/assets/vendor-three-CzlfmmXD.js   1,076.93 kB │ gzip: 300.98 kB
 *   Implemented via `document.addEventListener('visibilitychange')` in `ExperienceCanvas.tsx`.
 *   When the browser tab is hidden, `<Canvas frameloop="never"/>` activates, dropping CPU and GPU utilization to **0%**.
 *   Resumes smoothly without frame stutter upon refocus.
+
