@@ -1,10 +1,12 @@
 import { useRef, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { sceneTransientStore } from '../../store/sceneTransientStore';
 import { useUIStore } from '../../store/useUIStore';
 import { createVolumetricBeamMaterial } from '../shaders/volumetricBeamShader';
 
 export function World05Beacon() {
+  const groupRef = useRef<THREE.Group | null>(null);
   const beaconMeshRef = useRef<THREE.Mesh | null>(null);
   const { setInspectedHotspotId } = useUIStore();
 
@@ -43,7 +45,13 @@ export function World05Beacon() {
   }, [beaconMaterial, starfield, beaconGeometry]);
 
   useFrame((state) => {
+    const p = sceneTransientStore.smoothProgress;
     const time = state.clock.getElapsedTime();
+
+    if (groupRef.current) {
+      groupRef.current.visible = p >= 0.80;
+    }
+
     if (beaconMaterial.uniforms.uTime) {
       beaconMaterial.uniforms.uTime.value = time;
     }
@@ -53,7 +61,7 @@ export function World05Beacon() {
   });
 
   return (
-    <group name="World05_DeepSpaceBeacon" position={[0.0, 0.0, 0.0]}>
+    <group ref={groupRef} name="World05_DeepSpaceBeacon" position={[0.0, 0.0, 0.0]}>
       {/* Cosmic Starfield surrounding the Atlas */}
       <points geometry={starfield}>
         <pointsMaterial

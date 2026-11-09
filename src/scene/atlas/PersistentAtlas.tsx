@@ -29,14 +29,14 @@ export function PersistentAtlas() {
 
   // Floating amber dust motes catching celestial light
   const dustParticles = useMemo(() => {
-    const count = 450;
+    const count = 550;
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      const radius = 1.2 + Math.random() * 4.8;
+      const radius = 1.2 + Math.random() * 5.2;
       const theta = Math.random() * Math.PI * 2;
       const phi = (Math.random() - 0.5) * Math.PI;
       positions[i * 3 + 0] = radius * Math.cos(phi) * Math.sin(theta);
-      positions[i * 3 + 1] = 1.2 + radius * Math.sin(phi);
+      positions[i * 3 + 1] = 1.5 + radius * Math.sin(phi);
       positions[i * 3 + 2] = radius * Math.cos(phi) * Math.cos(theta);
     }
     const geom = new THREE.BufferGeometry();
@@ -176,30 +176,36 @@ export function PersistentAtlas() {
       <primitive object={heroScene} />
 
       {/* Internal radiant golden light emanating from the Aetherial Core */}
-      <pointLight position={[0.0, 0.3, 0.0]} color="#F2A93B" intensity={18.0} distance={22} decay={1.8} />
+      <pointLight position={[0.0, 1.5, 0.0]} color="#F2A93B" intensity={22.0} distance={26} decay={1.8} />
 
       {/* Concept-art inspired concentric orbital armillary rings & planetary nodes */}
-      <group ref={celestialRingsGroupRef} position={[0.0, 0.3, 0.0]}>
+      <group ref={celestialRingsGroupRef} position={[0.0, 1.5, 0.0]}>
         {/* Outer concentric celestial rings with warm golden luminescence */}
         <mesh rotation={[Math.PI / 2.3, 0.2, 0]}>
           <ringGeometry args={[3.2, 3.25, 64]} />
-          <meshBasicMaterial color="#F2A93B" transparent opacity={0.4} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#F2A93B" transparent opacity={0.45} side={THREE.DoubleSide} />
         </mesh>
         <mesh rotation={[-Math.PI / 2.6, -0.3, 0.4]}>
           <ringGeometry args={[3.8, 3.84, 64]} />
-          <meshBasicMaterial color="#C89D54" transparent opacity={0.35} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#C89D54" transparent opacity={0.38} side={THREE.DoubleSide} />
         </mesh>
         <mesh rotation={[Math.PI / 3.2, 0.5, -0.2]}>
           <ringGeometry args={[4.4, 4.43, 64]} />
-          <meshBasicMaterial color="#FAF6EE" transparent opacity={0.25} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#FAF6EE" transparent opacity={0.30} side={THREE.DoubleSide} />
+        </mesh>
+        <mesh rotation={[0.2, Math.PI / 2.1, 0.4]}>
+          <ringGeometry args={[4.9, 4.93, 64]} />
+          <meshBasicMaterial color="#E8B86D" transparent opacity={0.25} side={THREE.DoubleSide} />
         </mesh>
 
-        {/* Orbiting Planetary Nodes & Radiant Beams connecting to Core */}
+        {/* Orbiting Planetary Nodes & Radiant Beams connecting Core to Nodes */}
         {[
-          { pos: [3.2, 0.6, 0.0], r: 0.16, color: '#F2A93B' },
-          { pos: [-2.6, 1.2, 1.8], r: 0.14, color: '#C89D54' },
-          { pos: [1.8, -0.8, -3.0], r: 0.15, color: '#FAF6EE' },
-          { pos: [-3.4, -0.5, -1.6], r: 0.13, color: '#F2A93B' },
+          { pos: [3.2, 0.7, 0.4], r: 0.16, color: '#F2A93B' },
+          { pos: [-2.8, 1.4, 1.9], r: 0.15, color: '#E8B86D' },
+          { pos: [2.1, -1.0, -3.1], r: 0.17, color: '#FAF6EE' },
+          { pos: [-3.5, -0.6, -1.7], r: 0.14, color: '#F2A93B' },
+          { pos: [1.4, 2.4, 2.6], r: 0.13, color: '#C89D54' },
+          { pos: [-1.8, -1.6, 3.2], r: 0.15, color: '#E8B86D' },
         ].map((node, i) => (
           <group key={i}>
             {/* Glowing planetary sphere */}
@@ -208,7 +214,7 @@ export function PersistentAtlas() {
               <meshStandardMaterial
                 color={node.color}
                 emissive={node.color}
-                emissiveIntensity={1.5}
+                emissiveIntensity={1.8}
                 roughness={0.2}
                 metalness={0.8}
               />
@@ -223,7 +229,7 @@ export function PersistentAtlas() {
                   ),
                 }}
               />
-              <lineBasicMaterial color={node.color} transparent opacity={0.35} />
+              <lineBasicMaterial color={node.color} transparent opacity={0.4} />
             </line>
           </group>
         ))}

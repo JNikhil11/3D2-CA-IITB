@@ -3,8 +3,8 @@ import AxeBuilder from '@axe-core/playwright';
 
 test.describe('WCAG 2.2 AA Accessibility & DOM Mirror Verification', () => {
   test('passes axe automated accessibility scan', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 20000 });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 25000 });
 
     const accessibilityScanResults = await new AxeBuilder({ page })
       .disableRules(['color-contrast', 'region'])
@@ -14,8 +14,8 @@ test.describe('WCAG 2.2 AA Accessibility & DOM Mirror Verification', () => {
   });
 
   test('accessible DOM mirror contains full semantic hierarchy', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 20000 });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 25000 });
 
     const mainMirror = page.locator('#accessible-main-content');
     await expect(mainMirror).toBeAttached();

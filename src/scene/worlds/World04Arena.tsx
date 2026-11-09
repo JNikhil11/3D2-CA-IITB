@@ -2,11 +2,13 @@ import { useRef, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import { sceneTransientStore } from '../../store/sceneTransientStore';
 import { useUIStore } from '../../store/useUIStore';
 import { createVolumetricBeamMaterial } from '../shaders/volumetricBeamShader';
 
 export function World04Arena() {
   const gltf = useGLTF('/assets/models/world04-arena.glb');
+  const groupRef = useRef<THREE.Group | null>(null);
   const beamsGroupRef = useRef<THREE.Group | null>(null);
 
   const { setIsMapOpen } = useUIStore();
@@ -30,7 +32,13 @@ export function World04Arena() {
   }, [beamMaterial, beamCone]);
 
   useFrame((state) => {
+    const p = sceneTransientStore.smoothProgress;
     const time = state.clock.getElapsedTime();
+
+    if (groupRef.current) {
+      groupRef.current.visible = p >= 0.60 && p < 0.88;
+    }
+
     if (beamMaterial.uniforms.uTime) {
       beamMaterial.uniforms.uTime.value = time;
     }
@@ -46,7 +54,7 @@ export function World04Arena() {
   });
 
   return (
-    <group name="World04_TechnoholixArena" position={[0, 0, 0]}>
+    <group ref={groupRef} name="World04_TechnoholixArena" position={[0, 0, 0]}>
       <primitive object={scene} />
 
       {/* 8 Volumetric Searchlight Beams surrounding the Atlas */}

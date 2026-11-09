@@ -140,10 +140,15 @@ async function generateAtlasHero() {
   const buffer = doc.createBuffer();
   const scene = doc.createScene('LivingAtlasScene');
 
-  const matStone = doc.createMaterial('MAT_DarkSlate_Stone')
-    .setBaseColorFactor([0.10, 0.11, 0.15, 1.0])
-    .setMetallicFactor(0.2)
-    .setRoughnessFactor(0.85);
+  const matStone = doc.createMaterial('MAT_AlabasterMarble_PBR')
+    .setBaseColorFactor([0.84, 0.82, 0.76, 1.0])
+    .setMetallicFactor(0.12)
+    .setRoughnessFactor(0.65);
+
+  const matFigureBronze = doc.createMaterial('MAT_ScholarBronze_PBR')
+    .setBaseColorFactor([0.64, 0.50, 0.32, 1.0])
+    .setMetallicFactor(0.88)
+    .setRoughnessFactor(0.32);
 
   const matBronze = doc.createMaterial('MAT_AgedBronze_PBR')
     .setBaseColorFactor([0.55, 0.39, 0.22, 1.0])
@@ -171,27 +176,114 @@ async function generateAtlasHero() {
     .setMetallicFactor(0.1)
     .setRoughnessFactor(0.15);
 
-  // Plinth (Base)
+  // 1. Classical Altar Dais & Fluted Pedestal (Concept Art Sanctum Altar)
   const plinthGeoms = [];
-  plinthGeoms.push(new THREE.CylinderGeometry(2.4, 2.8, 0.4, 8));
-  const tier2 = new THREE.CylinderGeometry(2.0, 2.4, 0.3, 8);
-  tier2.translate(0, 0.35, 0);
-  plinthGeoms.push(tier2);
-  const tier3 = new THREE.CylinderGeometry(1.6, 2.0, 0.25, 8);
-  tier3.translate(0, 0.60, 0);
-  plinthGeoms.push(tier3);
-  const azimuthRing = new THREE.TorusGeometry(1.5, 0.08, 12, 36);
+  const daisStep1 = new THREE.CylinderGeometry(2.3, 2.6, 0.22, 24);
+  daisStep1.translate(0, -0.58, 0);
+  plinthGeoms.push(daisStep1);
+
+  const daisStep2 = new THREE.CylinderGeometry(1.8, 2.1, 0.20, 24);
+  daisStep2.translate(0, -0.37, 0);
+  plinthGeoms.push(daisStep2);
+
+  const daisStep3 = new THREE.CylinderGeometry(1.3, 1.6, 0.18, 24);
+  daisStep3.translate(0, -0.18, 0);
+  plinthGeoms.push(daisStep3);
+
+  const altarBase = new THREE.CylinderGeometry(0.85, 1.1, 0.14, 24);
+  altarBase.translate(0, -0.02, 0);
+  plinthGeoms.push(altarBase);
+
+  const flutedColumn = new THREE.CylinderGeometry(0.65, 0.70, 0.40, 20);
+  flutedColumn.translate(0, 0.25, 0);
+  plinthGeoms.push(flutedColumn);
+
+  const capital = new THREE.CylinderGeometry(0.85, 0.65, 0.12, 20);
+  capital.translate(0, 0.51, 0);
+  plinthGeoms.push(capital);
+
+  const azimuthRing = new THREE.TorusGeometry(0.85, 0.04, 8, 36);
   azimuthRing.rotateX(Math.PI / 2);
-  azimuthRing.translate(0, 0.75, 0);
+  azimuthRing.translate(0, 0.54, 0);
   plinthGeoms.push(azimuthRing);
+
   for (let i = 0; i < 36; i++) {
-    const tick = new THREE.BoxGeometry(0.04, 0.03, 0.18);
-    tick.translate(0, 0.76, 1.5);
+    const tick = new THREE.BoxGeometry(0.025, 0.02, 0.12);
+    tick.translate(0, 0.55, 0.85);
     tick.rotateY((i / 36) * Math.PI * 2);
     plinthGeoms.push(tick);
   }
+
   const mergedPlinth = safeMergeGeometries(plinthGeoms);
   addMeshNode(doc, buffer, scene, mergedPlinth, matStone, 'SM_Atlas_Plinth_01');
+
+  // 2. Sculpted Classical Renaissance Scholar / Atlas Figure (Concept Art Monument)
+  const figureGeoms = [];
+  // Classical flowing drapery & robes
+  const robes = new THREE.CylinderGeometry(0.24, 0.38, 0.55, 12);
+  robes.translate(0, 0.85, 0);
+  figureGeoms.push(robes);
+
+  const belt = new THREE.CylinderGeometry(0.25, 0.25, 0.08, 12);
+  belt.translate(0, 1.12, 0);
+  figureGeoms.push(belt);
+
+  // Torso & chest mantle
+  const torso = new THREE.BoxGeometry(0.38, 0.38, 0.26);
+  torso.translate(0, 1.31, 0);
+  figureGeoms.push(torso);
+
+  const cloak = new THREE.BoxGeometry(0.22, 0.35, 0.28);
+  cloak.translate(-0.14, 1.35, 0.02);
+  figureGeoms.push(cloak);
+
+  // Left arm holding astrolabe disk at hip
+  const leftArmUpper = new THREE.CylinderGeometry(0.06, 0.07, 0.28, 8);
+  leftArmUpper.rotateZ(0.3);
+  leftArmUpper.translate(-0.22, 1.28, 0);
+  figureGeoms.push(leftArmUpper);
+
+  const leftArmLower = new THREE.CylinderGeometry(0.05, 0.06, 0.25, 8);
+  leftArmLower.rotateZ(-0.25);
+  leftArmLower.translate(-0.18, 1.11, 0.05);
+  figureGeoms.push(leftArmLower);
+
+  const astrolabeDisk = new THREE.CylinderGeometry(0.12, 0.12, 0.02, 12);
+  astrolabeDisk.rotateY(0.4);
+  astrolabeDisk.translate(-0.12, 1.08, 0.12);
+  figureGeoms.push(astrolabeDisk);
+
+  // Right arm raised upward reaching toward the heavens
+  const rightArmUpper = new THREE.CylinderGeometry(0.06, 0.07, 0.32, 8);
+  rightArmUpper.rotateZ(-0.6);
+  rightArmUpper.translate(0.24, 1.45, 0);
+  figureGeoms.push(rightArmUpper);
+
+  const rightArmLower = new THREE.CylinderGeometry(0.05, 0.06, 0.32, 8);
+  rightArmLower.rotateZ(-0.3);
+  rightArmLower.translate(0.36, 1.68, 0.05);
+  figureGeoms.push(rightArmLower);
+
+  // Slender golden astronomer's pointer staff reaching into the Armillary Core
+  const sightingStaff = new THREE.CylinderGeometry(0.015, 0.020, 0.65, 8);
+  sightingStaff.rotateZ(-0.15);
+  sightingStaff.translate(0.38, 1.95, 0.08);
+  figureGeoms.push(sightingStaff);
+
+  // Sculpted head gazing upward toward celestial sphere
+  const head = new THREE.SphereGeometry(0.13, 12, 12);
+  head.scale(1.0, 1.15, 1.05);
+  head.rotateX(-0.25);
+  head.translate(0.02, 1.63, 0.02);
+  figureGeoms.push(head);
+
+  const wreath = new THREE.TorusGeometry(0.12, 0.025, 8, 16);
+  wreath.rotateX(-0.2);
+  wreath.translate(0.02, 1.67, 0.02);
+  figureGeoms.push(wreath);
+
+  const mergedFigure = safeMergeGeometries(figureGeoms);
+  addMeshNode(doc, buffer, scene, mergedFigure, matFigureBronze, 'SM_Atlas_ScholarFigure');
 
   // Meridian Outer Cradle
   const meridianGeoms = [];
@@ -293,6 +385,17 @@ async function generateWorld01Shell() {
     .setMetallicFactor(0.3)
     .setRoughnessFactor(0.75);
 
+  const matGuardianArmor = doc.createMaterial('MAT_GuardianArmor_PBR')
+    .setBaseColorFactor([0.22, 0.24, 0.28, 1.0])
+    .setMetallicFactor(0.88)
+    .setRoughnessFactor(0.35);
+
+  const matGuardianCore = doc.createMaterial('MAT_GuardianCyanCore_PBR')
+    .setBaseColorFactor([0.05, 0.85, 0.95, 1.0])
+    .setEmissiveFactor([0.15, 0.95, 1.0])
+    .setMetallicFactor(0.1)
+    .setRoughnessFactor(0.15);
+
   const shellGeoms = [];
   for (let i = 0; i < 8; i++) {
     const angle = (i / 8) * Math.PI * 2;
@@ -325,6 +428,105 @@ async function generateWorld01Shell() {
 
   const merged = safeMergeGeometries(shellGeoms);
   addMeshNode(doc, buffer, scene, merged, matArch, 'SM_Observatory_Shell');
+
+  // Helper to transform guardian primitives
+  function transformGeom(geom, x, z, rotY) {
+    if (rotY !== 0) geom.rotateY(rotY);
+    geom.translate(x, 0, z);
+    return geom;
+  }
+
+  // 4 Colossal Celestial Mech Guardians flanking the sanctuary (Concept Art Sentinels)
+  function addMechGuardian(armorGeoms, coreGeoms, posX, posZ, rotY, scale = 1.0) {
+    for (const side of [-0.32, 0.32]) {
+      const boot = new THREE.BoxGeometry(0.30 * scale, 0.28 * scale, 0.52 * scale);
+      boot.translate(side * scale, 0.14 * scale, 0.1 * scale);
+      armorGeoms.push(transformGeom(boot, posX, posZ, rotY));
+
+      const shin = new THREE.CylinderGeometry(0.16 * scale, 0.20 * scale, 0.9 * scale, 8);
+      shin.translate(side * scale, 0.68 * scale, 0);
+      armorGeoms.push(transformGeom(shin, posX, posZ, rotY));
+
+      const knee = new THREE.BoxGeometry(0.22 * scale, 0.22 * scale, 0.22 * scale);
+      knee.translate(side * scale, 1.15 * scale, 0.12 * scale);
+      armorGeoms.push(transformGeom(knee, posX, posZ, rotY));
+
+      const thigh = new THREE.CylinderGeometry(0.20 * scale, 0.18 * scale, 0.8 * scale, 8);
+      thigh.translate(side * scale, 1.6 * scale, 0);
+      armorGeoms.push(transformGeom(thigh, posX, posZ, rotY));
+    }
+
+    const belt = new THREE.BoxGeometry(0.92 * scale, 0.28 * scale, 0.52 * scale);
+    belt.translate(0, 2.05 * scale, 0);
+    armorGeoms.push(transformGeom(belt, posX, posZ, rotY));
+
+    const tasset = new THREE.BoxGeometry(0.32 * scale, 0.42 * scale, 0.08 * scale);
+    tasset.translate(0, 1.82 * scale, 0.28 * scale);
+    armorGeoms.push(transformGeom(tasset, posX, posZ, rotY));
+
+    const chestLower = new THREE.BoxGeometry(0.85 * scale, 0.48 * scale, 0.58 * scale);
+    chestLower.translate(0, 2.45 * scale, 0);
+    armorGeoms.push(transformGeom(chestLower, posX, posZ, rotY));
+
+    const chestUpper = new THREE.BoxGeometry(1.20 * scale, 0.62 * scale, 0.72 * scale);
+    chestUpper.translate(0, 2.95 * scale, 0.04 * scale);
+    armorGeoms.push(transformGeom(chestUpper, posX, posZ, rotY));
+
+    const gorget = new THREE.CylinderGeometry(0.32 * scale, 0.42 * scale, 0.22 * scale, 8);
+    gorget.translate(0, 3.32 * scale, 0.02 * scale);
+    armorGeoms.push(transformGeom(gorget, posX, posZ, rotY));
+
+    for (const side of [-1, 1]) {
+      const pauldron = new THREE.SphereGeometry(0.36 * scale, 8, 8, 0, Math.PI * 2, 0, Math.PI * 0.7);
+      pauldron.scale(1.1, 0.85, 1.0);
+      pauldron.translate(side * 0.78 * scale, 3.12 * scale, 0);
+      armorGeoms.push(transformGeom(pauldron, posX, posZ, rotY));
+
+      const armUpper = new THREE.CylinderGeometry(0.15 * scale, 0.14 * scale, 0.68 * scale, 8);
+      armUpper.translate(side * 0.78 * scale, 2.58 * scale, 0);
+      armorGeoms.push(transformGeom(armUpper, posX, posZ, rotY));
+
+      const armLower = new THREE.BoxGeometry(0.24 * scale, 0.72 * scale, 0.26 * scale);
+      armLower.translate(side * 0.78 * scale, 1.9 * scale, 0.06 * scale);
+      armorGeoms.push(transformGeom(armLower, posX, posZ, rotY));
+    }
+
+    const helm = new THREE.BoxGeometry(0.40 * scale, 0.48 * scale, 0.46 * scale);
+    helm.translate(0, 3.62 * scale, 0.06 * scale);
+    armorGeoms.push(transformGeom(helm, posX, posZ, rotY));
+
+    const crest = new THREE.BoxGeometry(0.08 * scale, 0.28 * scale, 0.48 * scale);
+    crest.translate(0, 3.92 * scale, 0.04 * scale);
+    armorGeoms.push(transformGeom(crest, posX, posZ, rotY));
+
+    // Glowing Cyan Visor & Chest Core
+    const visor = new THREE.BoxGeometry(0.30 * scale, 0.09 * scale, 0.08 * scale);
+    visor.translate(0, 3.62 * scale, 0.31 * scale);
+    coreGeoms.push(transformGeom(visor, posX, posZ, rotY));
+
+    const reactor = new THREE.CylinderGeometry(0.13 * scale, 0.13 * scale, 0.08 * scale, 12);
+    reactor.rotateX(Math.PI / 2);
+    reactor.translate(0, 2.95 * scale, 0.41 * scale);
+    coreGeoms.push(transformGeom(reactor, posX, posZ, rotY));
+  }
+
+  const guardianArmorGeoms = [];
+  const guardianCoreGeoms = [];
+
+  // 1. Left Foreground Guardian
+  addMechGuardian(guardianArmorGeoms, guardianCoreGeoms, -5.8, 1.4, 0.52, 1.15);
+  // 2. Left Background Guardian
+  addMechGuardian(guardianArmorGeoms, guardianCoreGeoms, -4.5, -3.2, 0.85, 1.05);
+  // 3. Right Foreground Guardian
+  addMechGuardian(guardianArmorGeoms, guardianCoreGeoms, 5.8, 1.4, -0.52, 1.15);
+  // 4. Right Background Guardian
+  addMechGuardian(guardianArmorGeoms, guardianCoreGeoms, 4.5, -3.2, -0.85, 1.05);
+
+  const mergedGuardianArmor = safeMergeGeometries(guardianArmorGeoms);
+  addMeshNode(doc, buffer, scene, mergedGuardianArmor, matGuardianArmor, 'SM_Guardian_Armors');
+
+  const mergedGuardianCore = safeMergeGeometries(guardianCoreGeoms);
+  addMeshNode(doc, buffer, scene, mergedGuardianCore, matGuardianCore, 'SM_Guardian_Cores');
 
   const io = new NodeIO();
   const glb = await io.writeBinary(doc);

@@ -2,10 +2,12 @@ import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import { sceneTransientStore } from '../../store/sceneTransientStore';
 import { useUIStore } from '../../store/useUIStore';
 
 export function World03Quadrants() {
   const gltf = useGLTF('/assets/models/world03-quadrants.glb');
+  const groupRef = useRef<THREE.Group | null>(null);
   const roboRef = useRef<THREE.Object3D | null>(null);
   const aeroRef = useRef<THREE.Object3D | null>(null);
   const aiRef = useRef<THREE.Object3D | null>(null);
@@ -25,7 +27,12 @@ export function World03Quadrants() {
   }, [gltf]);
 
   useFrame((state) => {
+    const p = sceneTransientStore.smoothProgress;
     const time = state.clock.getElapsedTime();
+
+    if (groupRef.current) {
+      groupRef.current.visible = p >= 0.35 && p < 0.68;
+    }
 
     // Kinematic motion for each quadrant model
     if (roboRef.current) {
@@ -45,7 +52,7 @@ export function World03Quadrants() {
   });
 
   return (
-    <group name="World03_EngineeringQuadrants" position={[0, 0, 0]}>
+    <group ref={groupRef} name="World03_EngineeringQuadrants" position={[0, 0, 0]}>
       {/* 3D Quadrants Model */}
       <primitive object={scene} />
 

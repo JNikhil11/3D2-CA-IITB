@@ -7,6 +7,7 @@ import { useUIStore } from '../../store/useUIStore';
 
 export function World02Engine() {
   const gltf = useGLTF('/assets/models/world02-engine.glb');
+  const groupRef = useRef<THREE.Group | null>(null);
   const gearTrainRef = useRef<THREE.Object3D | null>(null);
   const escapementRef = useRef<THREE.Object3D | null>(null);
   const pendulumRef = useRef<THREE.Object3D | null>(null);
@@ -27,6 +28,10 @@ export function World02Engine() {
     const p = sceneTransientStore.smoothProgress;
     const time = state.clock.getElapsedTime();
 
+    if (groupRef.current) {
+      groupRef.current.visible = p >= 0.12 && p < 0.45;
+    }
+
     // Rotate massive bevel gears proportional to scroll progress and idle clock drift
     if (gearTrainRef.current) {
       gearTrainRef.current.rotation.y = p * Math.PI * 8.0 + time * 0.15;
@@ -44,7 +49,7 @@ export function World02Engine() {
   });
 
   return (
-    <group name="World02_SubterraneanEngine" position={[0, 0, 0]}>
+    <group ref={groupRef} name="World02_SubterraneanEngine" position={[0, 0, 0]}>
       <primitive object={scene} />
 
       {/* Escapement Hotspot Proxy */}

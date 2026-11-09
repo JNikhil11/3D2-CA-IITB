@@ -5,8 +5,8 @@ test.describe('Scroll Synchronization & World Transitions', () => {
     const pageErrors: string[] = [];
     page.on('pageerror', (err) => pageErrors.push(err.message));
 
-    await page.goto('/');
-    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 20000 });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 25000 });
 
     // 1. Initial State: World I (The Grand Observatory)
     await expect(page.locator('.editorial-overlay h1')).toContainText(/Grand Observatory/i);

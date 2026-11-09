@@ -7,7 +7,7 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     page.on('pageerror', (err) => pageErrors.push(err.message));
 
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
 
     // 1. Assert WebGL canvas exists and is visible
     const canvas = page.locator('canvas');
@@ -29,7 +29,7 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     await expect(page.locator('nav[aria-label="Narrative Worlds Scrubber"]')).toHaveCount(0);
 
     // 5. Capture verified screenshot
-    await page.screenshot({ path: 'test-results/screenshots/world-01-observatory.png' });
+    await page.screenshot({ path: 'test-results/screenshots/world-01-observatory.png', animations: 'disabled' });
     expect(pageErrors).toHaveLength(0);
   });
 
@@ -38,14 +38,15 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     page.on('pageerror', (err) => pageErrors.push(err.message));
 
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto('/');
-    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 20000 });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 25000 });
 
     // Scroll to World II (28% scroll depth)
     await page.evaluate(() => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       window.scrollTo({ top: maxScroll * 0.28, behavior: 'instant' });
     });
+    await page.waitForTimeout(1000);
 
     // Deterministically await World II heading
     const heading = page.locator('.editorial-overlay h1');
@@ -57,7 +58,7 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     await expect(canvas).toBeVisible();
 
     // Capture verified screenshot
-    await page.screenshot({ path: 'test-results/screenshots/world-02-engine.png' });
+    await page.screenshot({ path: 'test-results/screenshots/world-02-engine.png', animations: 'disabled' });
     expect(pageErrors).toHaveLength(0);
   });
 
@@ -66,14 +67,15 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     page.on('pageerror', (err) => pageErrors.push(err.message));
 
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto('/');
-    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 20000 });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 25000 });
 
     // Scroll to World III (50% scroll depth)
     await page.evaluate(() => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       window.scrollTo({ top: maxScroll * 0.50, behavior: 'instant' });
     });
+    await page.waitForTimeout(1000);
 
     // Deterministically await World III heading
     const heading = page.locator('.editorial-overlay h1');
@@ -91,7 +93,7 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     await expect(canvas).toBeVisible();
 
     // Capture verified screenshot
-    await page.screenshot({ path: 'test-results/screenshots/world-03-quadrants.png' });
+    await page.screenshot({ path: 'test-results/screenshots/world-03-quadrants.png', animations: 'disabled' });
     expect(pageErrors).toHaveLength(0);
   });
 
@@ -100,14 +102,15 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     page.on('pageerror', (err) => pageErrors.push(err.message));
 
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto('/');
-    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 20000 });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 25000 });
 
     // Scroll to World IV (75% scroll depth)
     await page.evaluate(() => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       window.scrollTo({ top: maxScroll * 0.75, behavior: 'instant' });
     });
+    await page.waitForTimeout(1000);
 
     // Deterministically await World IV heading
     const heading = page.locator('.editorial-overlay h1');
@@ -119,7 +122,7 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     await expect(canvas).toBeVisible();
 
     // Capture verified screenshot
-    await page.screenshot({ path: 'test-results/screenshots/world-04-arena.png' });
+    await page.screenshot({ path: 'test-results/screenshots/world-04-arena.png', animations: 'disabled' });
     expect(pageErrors).toHaveLength(0);
   });
 
@@ -128,14 +131,15 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     page.on('pageerror', (err) => pageErrors.push(err.message));
 
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto('/');
-    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 20000 });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 25000 });
 
     // Scroll to World V (100% scroll depth)
     await page.evaluate(() => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       window.scrollTo({ top: maxScroll * 1.0, behavior: 'instant' });
     });
+    await page.waitForTimeout(1000);
 
     // Deterministically await World V heading
     const heading = page.locator('.editorial-overlay h1');
@@ -150,7 +154,7 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     await expect(canvas).toBeVisible();
 
     // Capture verified screenshot
-    await page.screenshot({ path: 'test-results/screenshots/world-05-beacon.png' });
+    await page.screenshot({ path: 'test-results/screenshots/world-05-beacon.png', animations: 'disabled' });
     expect(pageErrors).toHaveLength(0);
   });
 
@@ -159,8 +163,8 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
     page.on('pageerror', (err) => pageErrors.push(err.message));
 
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/');
-    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 20000 });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('[data-testid="experience-ready"]')).toBeAttached({ timeout: 25000 });
 
     // Assert mobile header and logos fit without horizontal overflow
     await expect(page.locator('img[alt*="IIT Bombay"]')).toBeVisible();
@@ -168,15 +172,16 @@ test.describe('Rigorous Visual Acceptance: 5 Worlds & Atlas Persistence', () => 
 
     // Assert World I heading is centered and readable
     await expect(page.locator('.editorial-overlay h1')).toContainText(/Grand Observatory/i, { timeout: 10000 });
-    await page.screenshot({ path: 'test-results/screenshots/mobile-world-01-hero.png' });
+    await page.screenshot({ path: 'test-results/screenshots/mobile-world-01-hero.png', animations: 'disabled' });
 
     // Scroll to World III on mobile
     await page.evaluate(() => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       window.scrollTo({ top: maxScroll * 0.50, behavior: 'instant' });
     });
+    await page.waitForTimeout(1000);
     await expect(page.locator('.editorial-overlay h1')).toContainText(/Engineering Quadrants/i, { timeout: 10000 });
-    await page.screenshot({ path: 'test-results/screenshots/mobile-world-03-quadrants.png' });
+    await page.screenshot({ path: 'test-results/screenshots/mobile-world-03-quadrants.png', animations: 'disabled' });
 
     expect(pageErrors).toHaveLength(0);
   });

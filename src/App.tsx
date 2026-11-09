@@ -8,7 +8,6 @@ import { CalibratedLoader } from './components/loader/CalibratedLoader';
 import { ExperienceCanvas } from './scene/ExperienceCanvas';
 import { TopHeader } from './components/hud/TopHeader';
 import { EditorialOverlay } from './components/hud/EditorialOverlay';
-import { SvgLeaderLines } from './components/hud/SvgLeaderLines';
 import { HotspotDetailDrawer } from './components/modals/HotspotDetailDrawer';
 import { SpatialCampusMapModal } from './components/modals/SpatialCampusMapModal';
 import { AccessibleDOMMirror } from './components/fallback/AccessibleDOMMirror';
@@ -93,7 +92,6 @@ export function App() {
         <>
           <TopHeader />
           <EditorialOverlay />
-          <SvgLeaderLines />
           <HotspotDetailDrawer />
           <SpatialCampusMapModal />
         </>
