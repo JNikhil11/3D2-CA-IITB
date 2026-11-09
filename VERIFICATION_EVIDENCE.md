@@ -45,3 +45,4 @@
 *   **Techfest Wordmark:** Verified asset with official dates (`16th - 18th December, 2026`).
 *   **IIT Bombay Emblem:** Official heraldic crest integrated into top navigation bar and favicon.
 *   **External Links:** Directly linked to `https://techfest.org/`, `https://ca.techfest.org/`, and `https://www.iitb.ac.in/`.
+

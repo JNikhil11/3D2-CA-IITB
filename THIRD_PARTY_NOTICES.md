@@ -63,3 +63,4 @@ This document details all open-source libraries, procedural assets, fonts, and c
 *   **Official IIT Bombay Seal (`public/assets/brand/iitb-crest.png`):**
     *   Official emblem of the Indian Institute of Technology Bombay.
     *   Used strictly for academic and institutional attribution under the College Ambassador assignment mandate.
+
