@@ -1,0 +1,44 @@
+name: Continuous Integration & Verification Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Lint, Typecheck, Unit Tests & Production Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: TypeScript Typecheck
+        run: npm run typecheck
+
+      - name: Verify Asset Manifest Budgets & Files
+        run: npm run verify:manifest
+
+      - name: Run Vitest Unit Tests
+        run: npm run test:unit
+
+      - name: Build Production Vite Artifacts
+        run: npm run build
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright E2E & 11-Viewport Verification
+        run: npx playwright test

@@ -1,0 +1,61 @@
+{
+  "manifestVersion": "1.0.0",
+  "totalCriticalBudgetKb": 5000,
+  "assets": [
+    {
+      "id": "atlas-hero",
+      "filePath": "/assets/models/atlas-hero.glb",
+      "loadingTier": "Tier A (Critical)",
+      "maxCompressedSizeKb": 2800,
+      "maxTriangles": 186000,
+      "sha256": "4FE7CAF2629F9B1576A1E6099722523D598A1C78E82CCCE3413ECBD3B9B1C383",
+      "license": "Custom Programmatic CAD (MIT - Project 3D2-CA-IITB)"
+    },
+    {
+      "id": "world01-shell",
+      "filePath": "/assets/models/world01-shell.glb",
+      "loadingTier": "Tier A (Critical)",
+      "maxCompressedSizeKb": 1400,
+      "maxTriangles": 64000,
+      "sha256": "1F9E418898D4D9B88566CB140C989024BF8675AD325B2265B3377B28A9705DEA",
+      "license": "Custom Programmatic CAD (MIT - Project 3D2-CA-IITB)"
+    },
+    {
+      "id": "env-observatory",
+      "filePath": "/assets/textures/observatory-1k.hdr",
+      "loadingTier": "Tier A (Critical)",
+      "maxCompressedSizeKb": 600,
+      "maxTriangles": 0,
+      "sha256": "449C5E5D7945CDFF5413081F8AC3A89F6DBAC025254893D962ABC9C06B9403A5",
+      "license": "CC0 1.0 Universal (Procedural Radiance RGBE)"
+    },
+    {
+      "id": "world02-engine",
+      "filePath": "/assets/models/world02-engine.glb",
+      "loadingTier": "Tier B (Next)",
+      "maxCompressedSizeKb": 2100,
+      "maxTriangles": 140000,
+      "sha256": "C498200ED54DED5E494CCCC53D53BCE30B40B378BC247861AEC1F9B4E89766EE",
+      "license": "Custom Programmatic CAD (MIT - Project 3D2-CA-IITB)"
+    },
+    {
+      "id": "world03-quadrants",
+      "filePath": "/assets/models/world03-quadrants.glb",
+      "loadingTier": "Tier C (Deferred)",
+      "maxCompressedSizeKb": 2600,
+      "maxTriangles": 190000,
+      "sha256": "5F34B9DB6F024B436DD5B7D0DEAE452CCCA327DA09751FE6204F8CA81107FFF5",
+      "license": "Custom Programmatic CAD (MIT - Project 3D2-CA-IITB)"
+    },
+    {
+      "id": "world04-arena",
+      "filePath": "/assets/models/world04-arena.glb",
+      "loadingTier": "Tier C (Deferred)",
+      "maxCompressedSizeKb": 1800,
+      "maxTriangles": 110000,
+      "sha256": "84715D3B74181BA76BF0061DFB757D24111ECA0E50052C0FD8FA23D03EEB01E8",
+      "license": "Custom Programmatic CAD (MIT - Project 3D2-CA-IITB)"
+    }
+  ]
+}
+

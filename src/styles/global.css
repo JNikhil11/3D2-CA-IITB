@@ -1,0 +1,82 @@
+@import './tokens.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--color-deep-ink);
+  color: var(--color-warm-ivory);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibility: High-contrast focus indicator */
+:focus-visible {
+  outline: 2px solid var(--color-amber-light) !important;
+  outline-offset: 3px !important;
+}
+
+/* Screen-reader accessible hidden text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-deep-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-aged-bronze);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-antique-brass);
+}
+
+/* Responsive Safe-Zone HUD Layout */
+@media (max-width: 1024px) {
+  .hud-center-telemetry {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hud-button-label {
+    display: none;
+  }
+  .scrubber-label {
+    display: none;
+  }
+
+  /* Transform left editorial panel into bottom vellum drawer (max 28dvh) */
+  .hud-vellum-panel {
+    left: 1rem !important;
+    right: 1rem !important;
+    width: auto !important;
+    bottom: calc(var(--hud-bottom-height) + 0.5rem) !important;
+    top: auto !important;
+    max-height: 28dvh !important;
+    padding: 1rem !important;
+    clip-path: var(--clip-chamfer-sm) !important;
+  }
+}
+

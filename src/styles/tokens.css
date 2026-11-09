@@ -1,0 +1,92 @@
+/* =========================================================================
+   3D2-CA-IITB DESIGN SYSTEM TOKENS: THE LIVING ATLAS (AETHERIAL RENAISSANCE)
+   Strictly WCAG 2.2 AA compliant contrast ratios against Deep Ink (#08090F)
+   ========================================================================= */
+
+:root {
+  /* Core Color Palette */
+  --color-deep-ink: #08090f;
+  --color-deep-ink-rgb: 8, 9, 15;
+  --color-dusk-violet: #161426;
+  --color-dusk-violet-rgb: 22, 20, 38;
+  --color-warm-ivory: #f4efe6;
+  --color-warm-ivory-rgb: 244, 239, 230;
+  --color-parchment-muted: #b8b0a2;
+  --color-parchment-muted-rgb: 184, 176, 162;
+  --color-antique-brass: #c89d54;
+  --color-antique-brass-rgb: 200, 157, 84;
+  --color-aged-bronze: #8c6239;
+  --color-aged-bronze-rgb: 140, 98, 57;
+  --color-amber-light: #f2a93b;
+  --color-amber-light-rgb: 242, 169, 59;
+  --color-ultramarine: #1f3a93;
+  --color-ultramarine-rgb: 31, 58, 147;
+  --color-vermilion: #c93b2b;
+  --color-vermilion-rgb: 201, 59, 43;
+  --color-sage-patina: #5b7a66;
+  --color-sage-patina-rgb: 91, 122, 102;
+
+  /* Typography Stacks */
+  --font-display: 'Instrument Serif', 'Cinzel', 'Times New Roman', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', 'General Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Space Mono', Consolas, monospace;
+
+  /* Fluid Typography Scale */
+  --text-hero: clamp(2.75rem, 5.5vw + 1rem, 5.25rem);
+  --text-h1: clamp(2.0rem, 3.5vw + 0.75rem, 3.5rem);
+  --text-h2: clamp(1.35rem, 2.0vw + 0.5rem, 2.15rem);
+  --text-h3: clamp(1.1rem, 1.2vw + 0.5rem, 1.45rem);
+  --text-body: clamp(0.95rem, 0.4vw + 0.85rem, 1.125rem);
+  --text-caption: clamp(0.8rem, 0.3vw + 0.75rem, 0.925rem);
+  --text-mono: clamp(0.75rem, 0.2vw + 0.7rem, 0.85rem);
+
+  /* Spatial Geometry & Polygonal Cuts */
+  --clip-chamfer-panel: polygon(
+    0 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% 100%,
+    18px 100%,
+    0 calc(100% - 18px)
+  );
+  --clip-chamfer-sm: polygon(
+    0 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% 100%,
+    8px 100%,
+    0 calc(100% - 8px)
+  );
+  --clip-reticle: polygon(
+    0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 0 calc(100% - 4px)
+  );
+
+  /* Surface Treatments */
+  --surface-vellum: linear-gradient(
+    145deg,
+    rgba(14, 15, 24, 0.88) 0%,
+    rgba(22, 20, 38, 0.78) 100%
+  );
+  --surface-vellum-solid: #10111a;
+  --border-vellum: 1px solid rgba(200, 157, 84, 0.28);
+  --border-vellum-active: 1px solid rgba(242, 169, 59, 0.75);
+
+  /* Safe-Zone Layout Partitioning */
+  --hud-top-height: 64px;
+  --hud-bottom-height: 72px;
+  --hud-left-max-width: 32vw;
+  --hud-right-max-width: 28vw;
+  --center-optical-sanctuary-min: 40vw;
+
+  /* Z-Index Hierarchy */
+  --z-canvas: 1;
+  --z-svg-lines: 10;
+  --z-hud-base: 20;
+  --z-hud-panels: 30;
+  --z-hud-floating: 40;
+  --z-modals: 100;
+  --z-loader: 200;
+}
+

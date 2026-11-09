@@ -1,0 +1,27 @@
+# CodeRabbit Configuration for Project 3D2-CA-IITB
+# Focus: TypeScript, React Three Fiber, WebGL Resource Disposal, WCAG 2.2 AA
+language: "en-US"
+tone_instructions: "Thorough, constructive senior WebGL & graphics engineering review focusing on GPU resource management, Three.js memory leaks, 60 FPS frame pacing, and WCAG accessibility."
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+
+chat:
+  auto_reply: true
+
+path_filters:
+  - "!dist/**"
+  - "!test-results/**"
+  - "!coverage/**"
+  - "!node_modules/**"
+  - "!public/assets/**"
